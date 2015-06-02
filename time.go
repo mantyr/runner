@@ -42,19 +42,41 @@ func ParseDateString(parse, format, date string) (string, error) {
     return t.Format(format), nil
 }
 
+func DateFormat(format string, date time.Time) string {
+    format = ParseDateFormat(format)
+    return date.Format(format)
+}
+
 // see http://golang.org/src/time/format.go
 func ParseDateFormat(format string) string {
     format = strings.ToLower(format)
     format = strings.Replace(format, "mm",   "01",   -1)
     format = strings.Replace(format, "dd",   "02",   -1)
+
+    format = strings.Replace(format, "m",   "1",   -1)
+    format = strings.Replace(format, "d",   "2",   -1)
+
     format = strings.Replace(format, "yyyy", "2006", -1)
+
+    format = strings.Replace(format, "hh", "15", -1)
+    format = strings.Replace(format, "ii", "04", -1)
+    format = strings.Replace(format, "ss", "05", -1)
+
+    format = strings.Replace(format, "h", "3", -1)
+    format = strings.Replace(format, "i", "4", -1)
+    format = strings.Replace(format, "s", "5", -1)
+
     return format
 }
 
 func ParseDateFormatStringZero(format string) string {
     format = strings.ToLower(format)
-    format = strings.Replace(format, "mm",   "00",   -1)
-    format = strings.Replace(format, "dd",   "00",   -1)
+    format = strings.Replace(format, "m",   "0",   -1)
+    format = strings.Replace(format, "d",   "0",   -1)
     format = strings.Replace(format, "yyyy", "0000", -1)
+
+    format = strings.Replace(format, "h", "0", -1)
+    format = strings.Replace(format, "i", "0", -1)
+    format = strings.Replace(format, "s", "0", -1)
     return format
 }

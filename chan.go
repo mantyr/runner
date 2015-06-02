@@ -20,13 +20,15 @@ func GetCommand(safe chan string, is_run bool) string {
 // return last command from channel or "next" or will wait for the first command
 func GetLastCommand(safe chan string, is_run bool) string {
     comm := "next"
-    select {
-        case comm = <- safe:
-            return comm
-        default:
-            if !is_run {
-                comm = <- safe
-            }
-            return comm
+    for {
+        select {
+            case comm = <- safe:
+                is_run = true
+            default:
+                if !is_run {
+                    comm = <- safe
+                }
+                return comm
+        }
     }
 }
