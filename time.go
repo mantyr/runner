@@ -47,6 +47,20 @@ func DateFormat(format string, date time.Time) string {
     return date.Format(format)
 }
 
+func LastDuration(format, parse string) (time.Duration, error) {
+    format = ParseDateFormat(format)
+    next, err := time.Parse(format, parse)
+    if err != nil {
+        return 0, err
+    }
+    this, err := time.Parse(format, time.Now().Local().Format(format))
+    if err != nil {
+        return 0, err
+    }
+
+    return next.Sub(this), nil
+}
+
 // see http://golang.org/src/time/format.go
 func ParseDateFormat(format string) string {
     format = strings.ToLower(format)
