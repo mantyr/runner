@@ -1,9 +1,11 @@
 # Runner
 
+[![Build Status](https://travis-ci.org/mantyr/runner.svg?branch=master)](https://travis-ci.org/mantyr/runner) [![GoDoc](https://godoc.org/github.com/mantyr/runner?status.png)](http://godoc.org/github.com/mantyr/runner)
+
 ## Installation
 
-  $ go get github.com/mantyr/runner
-  
+    $ go get github.com/mantyr/runner
+
 ## Changelog
 
 *    **2015-05-23** : Add `GetCommand` helper function to return message of channel in unlocked mode. Used to control goroutines. Start, stop and other command in return. [Oleg Shevelev][mantyr].
