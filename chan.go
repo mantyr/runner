@@ -1,9 +1,12 @@
+// Golang Runner
+// 2015 (c) Oleg Shevelev|mantyr@gmail.com
 package runner
 
-/**
-    start/stop goroutine between iterations, universal version
-    (c) Oleg Shevelev|mantyr@gmail.com
- */
+import (
+    "log"
+)
+
+// For start/stop goroutine between iterations, universal version
 func GetCommand(safe chan string, is_run bool) string {
     select {
         case comm := <- safe:
@@ -30,5 +33,13 @@ func GetLastCommand(safe chan string, is_run bool) string {
                 }
                 return comm
         }
+    }
+}
+
+
+func Recovery(message string, f func()) {
+    if r := recover(); r != nil {
+        log.Println("Recovered in ", message, r)
+        f()
     }
 }
