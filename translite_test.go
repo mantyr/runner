@@ -24,3 +24,13 @@ func TestTransliteRus(t *testing.T) {
     }
 }
 
+func TestSlug(t *testing.T) {
+    text := " Привет Мир(123!@#$%^&*()_+=)"
+    test := "privet_mir_123"
+
+    val := TextSlug(text)
+    if val != test {
+        t.Errorf("Error TextSlug, %q %q %q", text, test, val)
+    }
+}
+

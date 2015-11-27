@@ -12,10 +12,39 @@ func Translite(text string) string {
 }
 
 func TextSlug(text string) string {
+    r := strings.NewReplacer(
+        "'", "",
+        ".", "_",
+        "§", "_",
+        "±", "_",
+        "!", "_",
+        "@", "_",
+        "#", "_",
+        "$", "_",
+        "%", "_",
+        "^", "_",
+        "&", "_",
+        "*", "_",
+        "(", "_",
+        ")", "_",
+        "=", "_",
+        "+", "_",
+        "`", "_",
+        "~", "_",
+        "{", "_",
+        "}", "_",
+        "(", "_",
+        ")", "_",
+        "\\", "_",
+        "\"", "_",
+        "|", "_",
+        ",", "_",
+        "?", "_",
+        "__", "_",
+    )
+
     text = Translite(text)
-    text = strings.Replace(text, "'", "", -1)
-    text = strings.Replace(text, ".", "", -1)
-    text = strings.Replace(text, "__", "_", -1)
+    text = r.Replace(text)
     text = strings.Trim(text, "_")
     text = strings.ToLower(text)
     return text
