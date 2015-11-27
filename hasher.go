@@ -18,7 +18,11 @@ func GetHash(text string) string {
     return hex.EncodeToString(hash.Sum(nil))
 }
 
-func GetHashFile(file *os.File) string {
+func GetHashFile(address string) string {
+    file, err := os.Open(address)
+    if err != nil {
+        return ""
+    }
     hash := sha256.New()
     io.Copy(hash, file)
 
