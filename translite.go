@@ -2,6 +2,7 @@ package runner
 
 import (
     "github.com/mantyr/gounidecode/unidecode"
+    "regexp"
     "strings"
 )
 
@@ -12,39 +13,10 @@ func Translite(text string) string {
 }
 
 func TextSlug(text string) string {
-    r := strings.NewReplacer(
-        "'", "",
-        ".", "_",
-        "§", "_",
-        "±", "_",
-        "!", "_",
-        "@", "_",
-        "#", "_",
-        "$", "_",
-        "%", "_",
-        "^", "_",
-        "&", "_",
-        "*", "_",
-        "(", "_",
-        ")", "_",
-        "=", "_",
-        "+", "_",
-        "`", "_",
-        "~", "_",
-        "{", "_",
-        "}", "_",
-        "(", "_",
-        ")", "_",
-        "\\", "_",
-        "\"", "_",
-        "|", "_",
-        ",", "_",
-        "?", "_",
-        "__", "_",
-    )
+    r := regexp.MustCompile("[^a-zA-Z0-9]+")
 
     text = Translite(text)
-    text = r.Replace(text)
+    text = r.ReplaceAllString(text, "_")
     text = strings.Trim(text, "_")
     text = strings.ToLower(text)
     return text

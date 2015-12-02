@@ -25,7 +25,7 @@ func TestTransliteRus(t *testing.T) {
 }
 
 func TestSlug(t *testing.T) {
-    text := " Привет Мир(123!@#$%^&*()_+=)"
+    text := " Привет Мир(123!@#$%____^&*()_+=)"
     test := "privet_mir_123"
 
     val := TextSlug(text)
