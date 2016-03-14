@@ -15,3 +15,39 @@ func TestGetHashFile(t *testing.T) {
         t.Errorf("Error hash256 file, %q", hashfile)
     }
 }
+
+func TestRemoveDupRunes(t *testing.T) {
+    const nihongo1 = "日 本   ,   語"
+    const nihongo2 = " 日,,,    本    ,,,,語     "
+
+    val := RemoveDupRunes(nihongo1, " ")
+    if val != "日 本 , 語" {
+        t.Errorf("Error remove duplicate char, $q", val)
+    }
+
+    val = RemoveDupRunes(nihongo1, " ,")
+    if val != "日 本 語" {
+        t.Errorf("Error remove duplicate char, $q", val)
+    }
+
+
+    val = RemoveDupRunes(nihongo2, " ")
+    if val != "日,,, 本 ,,,,語" {
+        t.Errorf("Error remove duplicate char, $q", val)
+    }
+    val = RemoveDupRunes(nihongo2, " ,")
+    if val != "日,本 語" {
+        t.Errorf("Error remove duplicate char, $q", val)
+    }
+
+
+    val = RemoveDupRunes(nihongo2, " ,", "_")
+    if val != "日_本_語" {
+        t.Errorf("Error remove duplicate char, $q", val)
+    }
+
+    val = RemoveDupRunes(nihongo2, " ,", "_ _")
+    if val != "日_ _本_ _語" {
+        t.Errorf("Error remove duplicate char, $q", val)
+    }
+}
