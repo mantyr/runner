@@ -34,6 +34,12 @@ func Trim(text string) string {
 }
 
 // Remove duplicate rune, and remove first and last rune.
+// Example:
+// 	runner.RemoveDupRunes("string", " ", " ")                       // replace,          "  "      -> " "
+// 	                                                                                     "       " -> " "
+// 	runner.RemoveDupRunes("string\t\nstring", " \t\r\n", "")        // delete [ \t\r\n], return "string_string"
+// 	runner.RemoveDupRunes("string\t\nstring", " \t\r\n", "_test_")  // replace,          return "string_test_string"
+// Or see strings.TrimSpace()
 func RemoveDupRunes(s string, params ...string) (v string) {
     var sep, rep string
     if len(params) < 1 {
