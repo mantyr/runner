@@ -19,6 +19,7 @@ func TestGetHashFile(t *testing.T) {
 func TestRemoveDupRunes(t *testing.T) {
     const nihongo1 = "日 本   ,   語"
     const nihongo2 = " 日,,,    本    ,,,,語     "
+    const nihongo3 = " 日 本,語     "
 
     val := RemoveDupRunes(nihongo1, " ")
     if val != "日 本 , 語" {
@@ -50,4 +51,10 @@ func TestRemoveDupRunes(t *testing.T) {
     if val != "日_ _本_ _語" {
         t.Errorf("Error remove duplicate char, $q", val)
     }
+
+    val = RemoveDupRunes(nihongo3, " ,", " ")
+    if val != "日 本 語" {
+        t.Errorf("Error remove duplicate char, $q", val)
+    }
+
 }
