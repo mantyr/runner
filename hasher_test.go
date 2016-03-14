@@ -20,6 +20,7 @@ func TestRemoveDupRunes(t *testing.T) {
     const nihongo1 = "日 本   ,   語"
     const nihongo2 = " 日,,,    本    ,,,,語     "
     const nihongo3 = " 日 本,語     "
+    const nihongo4 = " 日		本	語	"
 
     val := RemoveDupRunes(nihongo1, " ")
     if val != "日 本 , 語" {
@@ -55,6 +56,11 @@ func TestRemoveDupRunes(t *testing.T) {
     val = RemoveDupRunes(nihongo3, " ,", " ")
     if val != "日 本 語" {
         t.Errorf("Error remove duplicate char, $q", val)
+    }
+
+    val = RemoveDupRunes(nihongo4, " \t", "_")
+    if val != "日_本_語" {
+        t.Errorf("Error remove duplicate char for tab and other utf8, $q", val)
     }
 
 }
