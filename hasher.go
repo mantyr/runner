@@ -81,3 +81,46 @@ func RemoveDupRunes(s string, params ...string) (v string) {
     }
     return
 }
+
+var Access_iframe_hosts = []string{
+    "youtube.com",
+    "ivi.ru"     ,
+    "rutube.ru"  ,
+    "vimeo.com"  ,
+    "vk.com"     ,
+    "mail.ru"    ,
+    "smotri.com" ,
+    "vgtrk.com"  , // vesti.ru and other
+    "flickr.com" ,
+    "ustream.tv" ,
+    "yandex.st"  ,
+    "myspacecdn.com" ,
+    "photobucket.com",
+}
+
+// Check the domain on the base domain match. Example: AccessHost("www.youtube.com", []string{"youtube.com", "twitter.com"}) is true
+func AccessHost(host string, access_hosts []string) bool {
+    host = "."+host
+    len_s := len(host)
+
+    for _, h := range access_hosts {
+        h      = "."+h
+        len_h := len(h)
+
+        if len_s == len_h {
+            if host == h {
+                return true
+            }
+            return false
+        }
+        if len_s < len_h {
+            return false
+        }
+
+        s_h := host[len_s-len_h:]
+        if s_h == h {
+            return true
+        }
+    }
+    return false
+}

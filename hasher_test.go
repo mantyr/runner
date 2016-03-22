@@ -64,3 +64,30 @@ func TestRemoveDupRunes(t *testing.T) {
     }
 
 }
+
+func TestAccessHost(t *testing.T) {
+    is := AccessHost("youtube.com", Access_iframe_hosts)
+    if !is {
+        t.Errorf("Error status in AccessHost, %q", is)
+    }
+
+    is = AccessHost("www.youtube.com", Access_iframe_hosts)
+    if !is {
+        t.Errorf("Error status in AccessHost, %q", is)
+    }
+
+    is = AccessHost("sdfkjlaskdjflaskjdf.vk.com", Access_iframe_hosts)
+    if !is {
+        t.Errorf("Error status in AccessHost, %q", is)
+    }
+
+    is = AccessHost("sdfkjlaskdjflaskjdf.vk.com", []string{"test.com", "test2.com"})
+    if is {
+        t.Errorf("Error status in AccessHost, %q", is)
+    }
+
+    is = AccessHost("test2.рф", []string{"test.com", "test2.рф", "vk.com"})
+    if !is {
+        t.Errorf("Error status in AccessHost, %q", is)
+    }
+}
