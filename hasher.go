@@ -96,6 +96,8 @@ var Access_iframe_hosts = []string{
     "yandex.st"  ,
     "myspacecdn.com" ,
     "photobucket.com",
+    "112.ua",
+    "videomanager.ollcdn.net", // www.segodnya.ua
 }
 
 // Check the domain on the base domain match. Example: AccessHost("www.youtube.com", []string{"youtube.com", "twitter.com"}) is true
@@ -111,14 +113,23 @@ func AccessHost(host string, access_hosts []string) bool {
             if host == h {
                 return true
             }
-            return false
+            continue
         }
         if len_s < len_h {
-            return false
+            continue
         }
 
         s_h := host[len_s-len_h:]
         if s_h == h {
+            return true
+        }
+    }
+    return false
+}
+
+func InSlice(s string, arr []string) bool {
+    for _, h := range arr {
+        if h == s {
             return true
         }
     }

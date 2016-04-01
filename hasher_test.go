@@ -90,4 +90,21 @@ func TestAccessHost(t *testing.T) {
     if !is {
         t.Errorf("Error status in AccessHost, %q", is)
     }
+
+    is = AccessHost("112.ua", Access_iframe_hosts)
+    if !is {
+        t.Errorf("Error status in AccessHost, %q", is)
+    }
+}
+
+func TestInSlice(t *testing.T) {
+    is := InSlice("ftp", []string{"sftp", "ftp", "http", "https"})
+    if !is {
+        t.Errorf("Error status in InSlice, %q", is)
+    }
+
+    is = InSlice("ftp", []string{"sftp", "http", "https"})
+    if is {
+        t.Errorf("Error status in InSlice, %q", is)
+    }
 }

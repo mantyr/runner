@@ -4,12 +4,13 @@ import (
     "time"
     "errors"
     "strings"
+    "fmt"
 )
 
 func ParseDate(parse, date string) (time.Time, error) {
     parse = ParseDateFormat(parse)
 
-    date = Trim(date)
+    date = ParseDateValue(date)
     if date == "" {
         t, _ := time.Parse("2006.01.02", "0001.01.01")
         return t, errors.New("Пустая дата")
@@ -29,7 +30,7 @@ func ParseDateString(parse, format, date string) (string, error) {
     parse = ParseDateFormat(parse)
     format = ParseDateFormat(format)
 
-    date = Trim(date)
+    date = ParseDateValue(date)
     if date == "" {
         date_zero = ParseDateFormatStringZero(date_zero)
         return date_zero, errors.New("Пустая дата")
@@ -93,4 +94,14 @@ func ParseDateFormatStringZero(format string) string {
     format = strings.Replace(format, "i", "0", -1)
     format = strings.Replace(format, "s", "0", -1)
     return format
+}
+
+func ParseDateValue(date string) string {
+    date = Trim(date)
+    for _, months := range ShortMonths {
+        for n, month := range months {
+            date = strings.Replace(date, month, fmt.Sprintf("%02d", n), -1)
+        }
+    }
+    return date
 }
