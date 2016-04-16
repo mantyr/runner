@@ -35,3 +35,12 @@ func GetFileExtAll(path string) (ext string){
     return
 }
 */
+
+//   definition go run in only linux
+func GetDirBin() (dir string, err error) {
+    dir, err = filepath.Abs(filepath.Dir(os.Args[0]))
+    if strings.Index(dir, "/tmp/go-build") == 0 || err != nil{
+        dir, err = os.Getwd()
+    }
+    return
+}
