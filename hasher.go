@@ -6,6 +6,7 @@ import (
     "strings"
     "os"
     "io"
+    "unicode/utf8"
 )
 
 // 65 chars sha 256
@@ -31,6 +32,12 @@ func GetHashFile(address string) string {
 
 func Trim(text string) string {
     return strings.Trim(text, " \n\t\r")
+}
+
+// Example "hello World" => "Hello World"
+func UcFirst(text string) string {
+    r, size := utf8.DecodeRuneInString(text)
+    return strings.ToUpper(string(r))+text[size:]
 }
 
 // Remove duplicate rune, and remove first and last rune.

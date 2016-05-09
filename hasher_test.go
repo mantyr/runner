@@ -108,3 +108,22 @@ func TestInSlice(t *testing.T) {
         t.Errorf("Error status in InSlice, %q", is)
     }
 }
+
+type ucFirstTest struct{
+    a string
+    b string
+}
+
+var ucFirstTests = []ucFirstTest{
+    {"hello World", "Hello World"},
+    {"Hello World", "Hello World"},
+    {"привет", "Привет"},
+}
+
+func TestUcFirst(t *testing.T) {
+    for _, item := range ucFirstTests {
+        if UcFirst(item.a) != item.b {
+            t.Errorf("Error UcFirst, %q, %q", item.a, item.b)
+        }
+    }
+}
