@@ -31,7 +31,7 @@ func GetHashFile(address string) string {
 }
 
 func Trim(text string) string {
-    return strings.Trim(text, " \n\t\r")
+    return strings.Trim(text, " \n\t\r\u00a0")
 }
 
 // Example "hello World" => "Hello World"
