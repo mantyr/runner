@@ -9,14 +9,16 @@ import (
 )
 
 type Zip struct {
-    File *zip.ReadCloser
-    File_list map[string]int
+    File       *zip.ReadCloser
+    name       string
+    File_list  map[string]int
     File_unzip map[string]*os.File
 }
 
 func ZipOpen(name string) (file *Zip, err error) {
     file = new(Zip)
     file.File, err = zip.OpenReader(name)
+    file.name = name
     if err != nil {
         return
     }
@@ -29,6 +31,10 @@ func ZipOpen(name string) (file *Zip, err error) {
     return
 }
 
+func (f *Zip) Name() string {
+    return f.name
+}
+
 func (f *Zip) GetFile(name string) (file *zip.File, err error) {
     key, ok := f.File_list[name]
     if ok {
@@ -37,7 +43,10 @@ func (f *Zip) GetFile(name string) (file *zip.File, err error) {
     return file, errors.New("No file in Zip Archive")
 }
 
-func (f *Zip) Unzip(name string) (file *os.File, err error){
+// Example:
+//  Unzip(name) // default dir = "./tmp/"
+//  Unzip(name, "./tmp/")
+func (f *Zip) Unzip(name string, params ...string) (file *os.File, err error){
     src_file, err := f.GetFile(name)
     if err != nil {
         return
@@ -52,7 +61,12 @@ func (f *Zip) Unzip(name string) (file *os.File, err error){
     }
     defer sr.Close()
 
-    file, err = ioutil.TempFile("./tmp/", "unzipfile")
+    tmp_dir := "./tmp/"
+    if len(params) > 0 {
+        tmp_dir = params[0]
+    }
+
+    file, err = ioutil.TempFile(tmp_dir, "unzipfile")
     if err != nil {
         return
     }
