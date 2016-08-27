@@ -7,6 +7,7 @@ import (
     "os"
     "io"
     "unicode/utf8"
+    "fmt"
 )
 
 // 65 chars sha 256
@@ -79,6 +80,9 @@ func RemoveDupRunes(s string, params ...string) (v string) {
 
         is_old = is
     }
+    if len(v) == 0 {
+        return
+    }
     if is_old {
         if rep == "" {
             v = v[0:len(v)-1]
@@ -142,3 +146,14 @@ func InSlice(s string, arr []string) bool {
     }
     return false
 }
+
+func Join(a []interface{}, sep string) (s string) {
+    for _, i := range a {
+        s += fmt.Sprintf("%v%s", i, sep)
+    }
+    if len(s) == 0 {
+        return
+    }
+    return s[0:len(s)-len(sep)]
+}
+
