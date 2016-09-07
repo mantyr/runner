@@ -157,3 +157,73 @@ func Join(a []interface{}, sep string) (s string) {
     return s[0:len(s)-len(sep)]
 }
 
+func JoinInt64(a []int64, sep string) (s string) {
+    for _, i := range a {
+        s += fmt.Sprintf("%v%s", i, sep)
+    }
+    if len(s) == 0 {
+        return
+    }
+    return s[0:len(s)-len(sep)]
+}
+
+func JoinMapInt64All(a map[int64]interface{}, sep string) (s string) {
+    for i, _ := range a {
+        s += fmt.Sprintf("%v%s", i, sep)
+    }
+    if len(s) == 0 {
+        return
+    }
+    return s[0:len(s)-len(sep)]
+}
+
+func JoinMapInt64(a map[int64]struct{}, sep string) (s string) {
+    for i, _ := range a {
+        s += fmt.Sprintf("%v%s", i, sep)
+    }
+    if len(s) == 0 {
+        return
+    }
+    return s[0:len(s)-len(sep)]
+}
+
+func JoinMapInt64Bool(a map[int64]bool, sep string) (s string) {
+    for i, _ := range a {
+        s += fmt.Sprintf("%v%s", i, sep)
+    }
+    if len(s) == 0 {
+        return
+    }
+    return s[0:len(s)-len(sep)]
+
+}
+
+func JoinMapStringAll(a map[string]interface{}, sep string) (s string) {
+    for i, _ := range a {
+        s += fmt.Sprintf("%v%s", i, sep)
+    }
+    if len(s) == 0 {
+        return
+    }
+    return s[0:len(s)-len(sep)]
+}
+
+func JoinMapString(a map[string]struct{}, sep string) (s string) {
+    for i, _ := range a {
+        s += fmt.Sprintf("%v%s", i, sep)
+    }
+    if len(s) == 0 {
+        return
+    }
+    return s[0:len(s)-len(sep)]
+}
+
+func JoinMapStringBool(a map[string]bool, sep string) (s string) {
+    for i, _ := range a {
+        s += fmt.Sprintf("%v%s", i, sep)
+    }
+    if len(s) == 0 {
+        return
+    }
+    return s[0:len(s)-len(sep)]
+}
